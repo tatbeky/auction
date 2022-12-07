@@ -15,10 +15,10 @@ const { NOTFOUND } = require('dns');
 const { json } = require('express');
 const { name } = require('ejs');
 var connection = mysql.createConnection({
-host:'127.0.0.1',
-user :'root',
-password:'',
-database:'project'
+host:'databases.000webhost.com',
+user :'id19886112_tatbeky0',
+password:'E<3gV!e}ioL_css&',
+database:'id19886112_tatbeky'
 });
 connection.connect();
 
