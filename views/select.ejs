@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Display Selected HTML Table TR Values In Input Text</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        table tr{
+            cursor: pointer;transition: all .25s ease-in-out;
+        }
+        table tr:hover{background-color: #ddd;}
+    </style>
+
+</head>
+<body>
+
+
+
+<form id="form" method="post" action="update">
+    <input type="text" hidden name="id" id="id">
+    <input type="text" hidden name="name" id="name">
+    <input type="text" hidden name="age" id="age">
+    <input type="text" hidden name="image" id="image">
+
+    <br/>
+    <br/>
+    <table id="table" Border="1">
+        <% data.forEach( function(m1) { %>
+            <tr>
+                <th> <%- m1.id %> </th>
+                <th> <%- m1.photo %> </th>
+                <th> <%- m1.num %> </th>
+                <th><%- m1.min_price %> </th>
+                <th> <%- m1.price %> </th>
+                <th><%- m1.image %> </th>
+            </tr>
+        <% }); %>
+    </table>
+
+
+</form>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+<script>
+
+    var table = document.getElementById('table');
+
+    for(var i = 0; i < table.rows.length; i++)
+    {
+        table.rows[i].onclick = function()
+        {
+
+            document.getElementById("id").value = this.cells[0].innerHTML;
+            document.getElementById("photo").value = this.cells[1].innerHTML;
+            document.getElementById("num").value = this.cells[2].innerHTML;
+            document.getElementById("min_price").value = this.cells[3].innerHTML;
+            document.getElementById("price").value = this.cells[3].innerHTML;
+            document.getElementById("name").value = this.cells[1].innerHTML;
+            document.getElementById('form').submit();
+
+
+        };
+    }
+
+</script>
+
+</body>
+</html>
+<!-- <form method="get">
+  <input type="text" name="id">
+  <input type="submit" >
+  </form> -->
