@@ -31,6 +31,7 @@ socket.on("get_all",(All)=>{
   
     connection.query('SELECT * FROM '+All+' ',function(error,results,fields){
     console.log(error);
+    console.log(results);
 if(!error){
   socket.emit('res_all',{ type:All , data :JSON.stringify(results )});
 }else{
@@ -39,12 +40,13 @@ if(!error){
     
 });
 });
-socket.on("get_one",(id)=>{
-  console.log(id);
-connection.query('SELECT * FROM comentes where id="'+id+'"',function(error,results,fields){
+socket.on("get_one",(ida)=>{
+  console.log(ida);
+  var json_ida = JSON.parse(JSON.stringify(ida));
+connection.query('SELECT * FROM "'+json_ida['type']+'" where id="'+json_ida['id']+'"',function(error,results,fields){
 console.log(error);
 if(!error){
-  socket.emit('res_one',JSON.stringify(results ));
+  socket.emit('res_one',{ type:json_ida['type'] , data :JSON.stringify(results )});
 }else{
   socket.emit('res_one',  "NOTFOUND");
 }
@@ -54,14 +56,14 @@ socket.on("update",(data)=>{
   console.log(data);
 
   var json_data = JSON.parse(JSON.stringify(data));
-connection.query('UPDATE comentes SET  photo="'+json_data['photo']+'", num="'+json_data['num']+'", min_price="'+json_data['min_price']+'", price="'+json_data['price']+'",name="'+json_data['name']+'" Where id="'+json_data['id']+'"' ,function(error,results,fields){
+connection.query('UPDATE "'+json_data['type']+'" SET name="'+json_data['name']+'" Where id="'+json_data['id']+'"' ,function(error,results,fields){
 console.log(error); 
 if(!error){ 
-  connection.query("SELECT * FROM comentes ",function(error,results,fields){
-     socket.broadcast.emit('res_all',JSON.stringify(results ));
+  connection.query('SELECT * FROM "'+json_data['type']+'" ',function(error,results,fields){
+     socket.broadcast.emit('res_all',{ type:json_ida['type'] , data :JSON.stringify(results )});
     });
-    connection.query('SELECT * FROM comentes where id="'+json_data['id']+'"',function(error,results,fields){ 
-       socket.broadcast.emit('res_one',JSON.stringify(results ));
+    connection.query('SELECT * FROM "'+json_data['type']+'" where id="'+json_data['id']+'"',function(error,results,fields){ 
+       socket.broadcast.emit('res_one',{ type:json_ida['type'] , data :JSON.stringify(results )});
       });
 
 }else{
