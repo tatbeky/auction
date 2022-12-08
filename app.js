@@ -16,7 +16,7 @@ const { json } = require('express');
 const { name } = require('ejs');
 var connection = mysql.createConnection({
 host:'sql6.freemysqlhosting.net',
-user :'sql6583378root',
+user :'sql6583378',
 password:'LzxJAKDkEM',
 database:'sql6583378'
 });
