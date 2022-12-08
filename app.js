@@ -43,7 +43,7 @@ if(!error){
 socket.on("get_one",(ida)=>{
   console.log(ida);
   var json_ida = JSON.parse(JSON.stringify(ida));
-connection.query('SELECT * FROM "'+json_ida['type']+'" where id="'+json_ida['id']+'"',function(error,results,fields){
+connection.query('SELECT * FROM '+json_ida['type']+' where id="'+json_ida['id']+'"',function(error,results,fields){
 console.log(error);
 if(!error){
   socket.emit('res_one',{ type:json_ida['type'] , data :JSON.stringify(results )});
@@ -56,13 +56,13 @@ socket.on("update",(data)=>{
   console.log(data);
 
   var json_data = JSON.parse(JSON.stringify(data));
-connection.query('UPDATE "'+json_data['type']+'" SET name="'+json_data['name']+'" Where id="'+json_data['id']+'"' ,function(error,results,fields){
+connection.query('UPDATE '+json_data['type']+' SET name="'+json_data['name']+'" Where id="'+json_data['id']+'"' ,function(error,results,fields){
 console.log(error); 
 if(!error){ 
-  connection.query('SELECT * FROM "'+json_data['type']+'" ',function(error,results,fields){
+  connection.query('SELECT * FROM '+json_data['type']+' ',function(error,results,fields){
      socket.broadcast.emit('res_all',{ type:json_ida['type'] , data :JSON.stringify(results )});
     });
-    connection.query('SELECT * FROM "'+json_data['type']+'" where id="'+json_data['id']+'"',function(error,results,fields){ 
+    connection.query('SELECT * FROM '+json_data['type']+' where id="'+json_data['id']+'"',function(error,results,fields){ 
        socket.broadcast.emit('res_one',{ type:json_ida['type'] , data :JSON.stringify(results )});
       });
 
