@@ -60,10 +60,10 @@ connection.query('UPDATE '+json_data['type']+' SET name="'+json_data['name']+'" 
 console.log(error); 
 if(!error){ 
   connection.query('SELECT * FROM '+json_data['type']+' ',function(error,results,fields){
-     socket.broadcast.emit('res_all',{ type:json_ida['type'] , data :JSON.stringify(results )});
+     socket.broadcast.emit('res_all',{ type:json_data['type'] , data :JSON.stringify(results )});
     });
     connection.query('SELECT * FROM '+json_data['type']+' where id="'+json_data['id']+'"',function(error,results,fields){ 
-       socket.broadcast.emit('res_one',{ type:json_ida['type'] , data :JSON.stringify(results )});
+       socket.broadcast.emit('res_one',{ type:json_data['type'] , data :JSON.stringify(results )});
       });
 
 }else{
